@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.hq.product.mapper.ProductMapper">
+    
+    <resultMap type="Product" id="ProductResult">
+        <result property="id"    column="id"    />
+        <result property="customsCode"    column="customs_code"    />
+        <result property="productName"    column="product_name"    />
+        <result property="englishName"    column="english_name"    />
+        <result property="customsDeclarationName"    column="customs_declaration_name"    />
+        <result property="customsInformation"    column="customs_information"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productType"    column="product_type"    />
+        <result property="unit"    column="unit"    />
+        <result property="taxRefundRate"    column="tax_refund_rate"    />
+        <result property="taxRebatesCoefficient"    column="tax_rebates_coefficient"    />
+        <result property="productModel"    column="product_model"    />
+        <result property="place"    column="place"    />
+        <result property="declareElements"    column="declare_elements"    />
+        <result property="standby01"    column="standby_01"    />
+        <result property="standby02"    column="standby_02"    />
+        <result property="standby03"    column="standby_03"    />
+        <result property="createId"    column="create_id"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="lastUpdateId"    column="last_update_id"    />
+        <result property="lastUpdateDate"    column="last_update_date"    />
+        <result property="ip"    column="ip"    />
+    </resultMap>
+
+    <sql id="selectProductVo">
+        select id, customs_code, product_name, english_name, customs_declaration_name, customs_information, product_id, product_type, unit, tax_refund_rate, tax_rebates_coefficient, product_model, place, declare_elements, standby_01, standby_02, standby_03, create_id, create_date, last_update_id, last_update_date, ip from hq_product
+    </sql>
+    
+     <select id="selectProductByProductId" parameterType="java.lang.String" resultMap="ProductResult">
+       <include refid="selectProductVo"/>
+       where product_id = #{productId}
+     </select>
+     
+     <select id="selectProductByProductParameter" parameterType="java.lang.String" resultMap="ProductResult">
+       <include refid="selectProductVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name = #{productName}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="productModel != null  and productModel != ''"> and product_model = #{productModel}</if>       
+        </where>
+     </select>
+           
+     
+     <select id="selectProductByProductName" parameterType="java.lang.String" resultMap="ProductResult">
+       <include refid="selectProductVo"/>
+       where product_name = #{name}
+     </select>
+    
+
+    <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        <where>  
+            <if test="customsCode != null  and customsCode != ''"> and customs_code = #{customsCode}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="englishName != null  and englishName != ''"> and english_name like concat('%', #{englishName}, '%')</if>
+            <if test="customsDeclarationName != null  and customsDeclarationName != ''"> and customs_declaration_name like concat('%', #{customsDeclarationName}, '%')</if>
+            <if test="customsInformation != null  and customsInformation != ''"> and customs_information = #{customsInformation}</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="productType != null  and productType != ''"> and product_type = #{productType}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''"> and tax_refund_rate = #{taxRefundRate}</if>
+            <if test="taxRebatesCoefficient != null  and taxRebatesCoefficient != ''"> and tax_rebates_coefficient = #{taxRebatesCoefficient}</if>
+            <if test="productModel != null  and productModel != ''"> and product_model = #{productModel}</if>
+            <if test="place != null  and place != ''"> and place = #{place}</if>
+            <if test="declareElements != null  and declareElements != ''"> and declare_elements = #{declareElements}</if>
+            <if test="standby01 != null  and standby01 != ''"> and standby_01 = #{standby01}</if>
+            <if test="standby02 != null  and standby02 != ''"> and standby_02 = #{standby02}</if>
+            <if test="standby03 != null  and standby03 != ''"> and standby_03 = #{standby03}</if>
+            <if test="createId != null  and createId != ''"> and create_id = #{createId}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''"> and last_update_id = #{lastUpdateId}</if>
+            <if test="lastUpdateDate != null "> and last_update_date = #{lastUpdateDate}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+        </where>
+    </select>
+    
+    <select id="selectProductById" parameterType="String" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProduct" parameterType="Product">
+        insert into hq_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="customsCode != null  and customsCode != ''">customs_code,</if>
+            <if test="productName != null  and productName != ''">product_name,</if>
+            <if test="englishName != null  and englishName != ''">english_name,</if>
+            <if test="customsDeclarationName != null  and customsDeclarationName != ''">customs_declaration_name,</if>
+            <if test="customsInformation != null  and customsInformation != ''">customs_information,</if>
+            <if test="productId != null  and productId != ''">product_id,</if>
+            <if test="productType != null  and productType != ''">product_type,</if>
+            <if test="unit != null  and unit != ''">unit,</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''">tax_refund_rate,</if>
+            <if test="taxRebatesCoefficient != null  and taxRebatesCoefficient != ''">tax_rebates_coefficient,</if>
+            <if test="productModel != null  and productModel != ''">product_model,</if>
+            <if test="place != null  and place != ''">place,</if>
+            <if test="declareElements != null  and declareElements != ''">declare_elements,</if>
+            <if test="standby01 != null  and standby01 != ''">standby_01,</if>
+            <if test="standby02 != null  and standby02 != ''">standby_02,</if>
+            <if test="standby03 != null  and standby03 != ''">standby_03,</if>
+            <if test="createId != null  and createId != ''">create_id,</if>
+            <if test="createDate != null ">create_date,</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''">last_update_id,</if>
+            <if test="lastUpdateDate != null ">last_update_date,</if>
+            <if test="ip != null  and ip != ''">ip,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="customsCode != null  and customsCode != ''">#{customsCode},</if>
+            <if test="productName != null  and productName != ''">#{productName},</if>
+            <if test="englishName != null  and englishName != ''">#{englishName},</if>
+            <if test="customsDeclarationName != null  and customsDeclarationName != ''">#{customsDeclarationName},</if>
+            <if test="customsInformation != null  and customsInformation != ''">#{customsInformation},</if>
+            <if test="productId != null  and productId != ''">#{productId},</if>
+            <if test="productType != null  and productType != ''">#{productType},</if>
+            <if test="unit != null  and unit != ''">#{unit},</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''">#{taxRefundRate},</if>
+            <if test="taxRebatesCoefficient != null  and taxRebatesCoefficient != ''">#{taxRebatesCoefficient},</if>
+            <if test="productModel != null  and productModel != ''">#{productModel},</if>
+            <if test="place != null  and place != ''">#{place},</if>
+            <if test="declareElements != null  and declareElements != ''">#{declareElements},</if>
+            <if test="standby01 != null  and standby01 != ''">#{standby01},</if>
+            <if test="standby02 != null  and standby02 != ''">#{standby02},</if>
+            <if test="standby03 != null  and standby03 != ''">#{standby03},</if>
+            <if test="createId != null  and createId != ''">#{createId},</if>
+            <if test="createDate != null ">#{createDate},</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''">#{lastUpdateId},</if>
+            <if test="lastUpdateDate != null ">#{lastUpdateDate},</if>
+            <if test="ip != null  and ip != ''">#{ip},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProduct" parameterType="Product">
+        update hq_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customsCode != null  and customsCode != ''">customs_code = #{customsCode},</if>
+            <if test="productName != null  and productName != ''">product_name = #{productName},</if>
+            <if test="englishName != null  and englishName != ''">english_name = #{englishName},</if>
+            <if test="customsDeclarationName != null  and customsDeclarationName != ''">customs_declaration_name = #{customsDeclarationName},</if>
+            <if test="customsInformation != null  and customsInformation != ''">customs_information = #{customsInformation},</if>
+            <if test="productId != null  and productId != ''">product_id = #{productId},</if>
+            <if test="productType != null  and productType != ''">product_type = #{productType},</if>
+            <if test="unit != null  and unit != ''">unit = #{unit},</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''">tax_refund_rate = #{taxRefundRate},</if>
+            <if test="taxRebatesCoefficient != null  and taxRebatesCoefficient != ''">tax_rebates_coefficient = #{taxRebatesCoefficient},</if>
+            <if test="productModel != null  and productModel != ''">product_model = #{productModel},</if>
+            <if test="place != null  and place != ''">place = #{place},</if>
+            <if test="declareElements != null  and declareElements != ''">declare_elements = #{declareElements},</if>
+            <if test="standby01 != null  and standby01 != ''">standby_01 = #{standby01},</if>
+            <if test="standby02 != null  and standby02 != ''">standby_02 = #{standby02},</if>
+            <if test="standby03 != null  and standby03 != ''">standby_03 = #{standby03},</if>
+            <if test="createId != null  and createId != ''">create_id = #{createId},</if>
+            <if test="createDate != null ">create_date = #{createDate},</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''">last_update_id = #{lastUpdateId},</if>
+            <if test="lastUpdateDate != null ">last_update_date = #{lastUpdateDate},</if>
+            <if test="ip != null  and ip != ''">ip = #{ip},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProductById" parameterType="String">
+        delete from hq_product where id = #{id}
+    </delete>
+
+    <delete id="deleteProductByIds" parameterType="String">
+        delete from hq_product where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

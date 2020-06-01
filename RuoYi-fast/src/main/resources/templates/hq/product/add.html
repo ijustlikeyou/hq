@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增瀚淇产品')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-product-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">海关编码：</label>
+                <div class="col-sm-8">
+                    <input name="customsCode" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品名称：</label>
+                <div class="col-sm-8">
+                    <input name="productName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">英文名称：</label>
+                <div class="col-sm-8">
+                    <input name="englishName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">报关名称：</label>
+                <div class="col-sm-8">
+                    <input name="customsDeclarationName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">关税信息：</label>
+                <div class="col-sm-8">
+                    <input name="customsInformation" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品编号：</label>
+                <div class="col-sm-8">
+                    <input name="productId" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品类型：</label>
+                <div class="col-sm-8">
+                    <select name="productType" class="form-control m-b" th:with="type=${@dict.getType('product_type')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">计量单位：</label>
+                <div class="col-sm-8">
+                    <input name="unit" class="form-control" type="text">
+                </div>
+            </div>
+             <div class="form-group">    
+                <label class="col-sm-3 control-label">包装单位：</label>
+                <div class="col-sm-8">
+                    <input name="standby01" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">退税率：</label>
+                <div class="col-sm-8">
+                    <select name="taxRefundRate" class="form-control m-b" th:with="type=${@dict.getType('hq_tax_refund_rate')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}">
+                    </select>
+                </div>
+            </div>
+             <div class="form-group">    
+                <label class="col-sm-3 control-label" title="退税系数默认不填写，如果填写将优先覆盖于退税率">退税系数：</label>
+                <div class="col-sm-8">
+                    <input name="taxRebatesCoefficient" class="form-control" type="text">
+                </div>
+            </div> 
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品型号：</label>
+                <div class="col-sm-8">
+                    <input name="productModel" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">原产地：</label>
+                <div class="col-sm-8">
+                    <input name="place" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">申报要素：</label>
+                <div class="col-sm-8">
+                    <textarea name="declareElements" class="form-control"></textarea>
+                </div>
+            </div>          
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "hq/product"
+        $("#form-product-add").validate({
+            focusCleanup: true,
+            rules:{
+            	customsCode:"required",
+            	productName:"required",
+            	englishName:"required",
+            	customsDeclarationName:"required",
+            	//customsInformation:"required",
+            	unit:"required",
+            	taxRefundRate:"required",
+            	//productModel:"required",
+            	place:"required",        
+            	declareElements:"required",
+            	productId:"required"
+            }
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-product-add').serialize());
+            }
+        }
+
+        $("input[name='createDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='lastUpdateDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

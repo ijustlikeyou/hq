@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改瀚淇产品')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-product-edit" th:object="${product}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">海关编码：</label>
+                <div class="col-sm-8">
+                    <input name="customsCode" th:field="*{customsCode}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品名称：</label>
+                <div class="col-sm-8">
+                    <input name="productName" th:field="*{productName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">英文名称：</label>
+                <div class="col-sm-8">
+                    <input name="englishName" th:field="*{englishName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">报关名称：</label>
+                <div class="col-sm-8">
+                    <input name="customsDeclarationName" th:field="*{customsDeclarationName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">关税信息：</label>
+                <div class="col-sm-8">
+                    <input name="customsInformation" th:field="*{customsInformation}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品编号：</label>
+                <div class="col-sm-8">
+                    <input name="productId" th:field="*{productId}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品类型：</label>
+                <div class="col-sm-8">
+                   <select name="productType" class="form-control m-b" th:with="type=${@dict.getType('product_type')}">
+				                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{productType}"></option>
+				   </select>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">计量单位：</label>
+                <div class="col-sm-8">
+                    <input name="unit" th:field="*{unit}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">退税率：</label>
+                <div class="col-sm-8">
+                   <select name="taxRefundRate" class="form-control m-b" th:with="type=${@dict.getType('hq_tax_refund_rate')}">
+				                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{taxRefundRate}"></option>
+				   </select>
+                </div>
+            </div>
+            
+             <div class="form-group">    
+                <label class="col-sm-3 control-label">退税系数：</label>
+                <div class="col-sm-8">
+                    <input name="taxRebatesCoefficient" th:field="*{taxRebatesCoefficient}" class="form-control" type="text">
+                </div>
+            </div> 
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品型号：</label>
+                <div class="col-sm-8">
+                    <input name="productModel" th:field="*{productModel}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">原产地：</label>
+                <div class="col-sm-8">
+                    <input name="place" th:field="*{place}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">申报要素：</label>
+                <div class="col-sm-8">
+                    <textarea name="declareElements" class="form-control">[[*{declareElements}]]</textarea>
+                </div>
+            </div>
+           
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "hq/product";
+        $("#form-product-edit").validate({
+            focusCleanup: true,
+            rules:{
+            	customsCode:"required",
+            	productName:"required",
+            	englishName:"required",
+            	customsDeclarationName:"required",
+            	//customsInformation:"required",
+            	unit:"required",
+            	taxRefundRate:"required",
+            	//productModel:"required",
+            	place:"required",         
+            	declareElements:"required",
+            	productId:"required"
+            }
+        });
+        
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-product-edit').serialize());
+            }
+        }
+
+        $("input[name='createDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='lastUpdateDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

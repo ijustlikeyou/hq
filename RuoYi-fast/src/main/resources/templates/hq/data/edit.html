@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改瀚淇订单数据')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-data-edit" th:object="${formData}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品名称：</label>
+                <div class="col-sm-8">
+                    <input name="productName" th:field="*{productName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品id：</label>
+                <div class="col-sm-8">
+                    <input name="productId" th:field="*{productId}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">订单id：</label>
+                <div class="col-sm-8">
+                    <input name="orderFormId" th:field="*{orderFormId}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">到货数量：</label>
+                <div class="col-sm-8">
+                    <input name="cargoCount" th:field="*{cargoCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">赠送数量：</label>
+                <div class="col-sm-8">
+                    <input name="presenterCount" th:field="*{presenterCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">采购数量：</label>
+                <div class="col-sm-8">
+                    <input name="purchaseCount" th:field="*{purchaseCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">单箱数：</label>
+                <div class="col-sm-8">
+                    <input name="boxCount" th:field="*{boxCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">件数：</label>
+                <div class="col-sm-8">
+                    <input name="pieceCount" th:field="*{pieceCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">立方数：</label>
+                <div class="col-sm-8">
+                    <input name="cubeCount" th:field="*{cubeCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">总立方数：</label>
+                <div class="col-sm-8">
+                    <input name="totalCubeCount" th:field="*{totalCubeCount}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">重量：</label>
+                <div class="col-sm-8">
+                    <input name="weight" th:field="*{weight}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">总重量：</label>
+                <div class="col-sm-8">
+                    <input name="totalWeight" th:field="*{totalWeight}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">单价：</label>
+                <div class="col-sm-8">
+                    <input name="unitPrice" th:field="*{unitPrice}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">金额：</label>
+                <div class="col-sm-8">
+                    <input name="money" th:field="*{money}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">排序：</label>
+                <div class="col-sm-8">
+                    <input name="sort" th:field="*{sort}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">备用字段01：</label>
+                <div class="col-sm-8">
+                    <input name="standby01" th:field="*{standby01}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">备用字段02：</label>
+                <div class="col-sm-8">
+                    <input name="standby02" th:field="*{standby02}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">备用字段03：</label>
+                <div class="col-sm-8">
+                    <input name="standby03" th:field="*{standby03}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "hq/data";
+        $("#form-data-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-data-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

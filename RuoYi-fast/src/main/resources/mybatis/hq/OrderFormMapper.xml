@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.hq.form.mapper.OrderFormMapper">
+    
+    <resultMap type="OrderForm" id="OrderFormResult">
+        <result property="id"    column="id"    />
+        <result property="shippingAddress"    column="shipping_address"    />
+        <result property="destination"    column="destination"    />
+        <result property="receivingCompany"    column="receiving_company"    />
+        <result property="formId"    column="form_id"    />
+        <result property="totalQuantity"    column="total_quantity"    />
+        <result property="totalCubic"    column="total_cubic"    />
+        <result property="totalWeight"    column="total_weight"    />
+        <result property="totalMoney"    column="total_money"    />
+        <result property="dollarCurrencyRate"    column="dollar_currency_rate"    />
+        <result property="taxRefundRate"    column="tax_refund_rate"    />
+        <result property="totalDollarsCustoms"    column="total_dollars_customs"    />
+        <result property="totalCount"    column="total_count"    />
+        <result property="standby01"    column="standby_01"    />
+        <result property="standby02"    column="standby_02"    />
+        <result property="standby03"    column="standby_03"    />
+        <result property="createId"    column="create_id"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="lastUpdateId"    column="last_update_id"    />
+        <result property="lastUpdateDate"    column="last_update_date"    />
+        <result property="ip"    column="ip"    />
+        <result property="formType"    column="form_type"    />
+        <result property="portOfDestination"    column="port_of_destination"    />
+        <result property="portOfDeparture"    column="port_of_departure"    />
+        <result property="termsOfDelivery"    column="terms_of_delivery"    />
+        <result property="kindOfPackage"    column="kind_of_package"    />
+        <result property="transportation"    column="transportation"    />
+        <result property="consigner"    column="consigner"    />
+        <result property="excelFilePath"    column="excel_file_path"    />
+    </resultMap>
+
+    <sql id="selectOrderFormVo">
+        select id, shipping_address, destination, receiving_company, form_id, total_quantity, total_cubic, total_weight, total_money, dollar_currency_rate, tax_refund_rate, total_dollars_customs, total_count, standby_01, standby_02, standby_03, create_id, create_date, last_update_id, last_update_date, ip, form_type, port_of_destination, port_of_departure, terms_of_delivery, kind_of_package, transportation, consigner, excel_file_path from hq_order_form
+    </sql>
+
+    <select id="selectOrderFormList" parameterType="OrderForm" resultMap="OrderFormResult">
+        <include refid="selectOrderFormVo"/>
+        <where>  
+            <if test="shippingAddress != null  and shippingAddress != ''"> and shipping_address = #{shippingAddress}</if>
+            <if test="destination != null  and destination != ''"> and destination = #{destination}</if>
+            <if test="receivingCompany != null  and receivingCompany != ''"> and receiving_company = #{receivingCompany}</if>
+            <if test="formId != null  and formId != ''"> and form_id = #{formId}</if>
+            <if test="totalQuantity != null "> and total_quantity = #{totalQuantity}</if>
+            <if test="totalCubic != null  and totalCubic != ''"> and total_cubic = #{totalCubic}</if>
+            <if test="totalWeight != null  and totalWeight != ''"> and total_weight = #{totalWeight}</if>
+            <if test="totalMoney != null  and totalMoney != ''"> and total_money = #{totalMoney}</if>
+            <if test="dollarCurrencyRate != null  and dollarCurrencyRate != ''"> and dollar_currency_rate = #{dollarCurrencyRate}</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''"> and tax_refund_rate = #{taxRefundRate}</if>
+            <if test="totalDollarsCustoms != null  and totalDollarsCustoms != ''"> and total_dollars_customs = #{totalDollarsCustoms}</if>
+            <if test="totalCount != null "> and total_count = #{totalCount}</if>
+            <if test="standby01 != null  and standby01 != ''"> and standby_01 = #{standby01}</if>
+            <if test="standby02 != null  and standby02 != ''"> and standby_02 = #{standby02}</if>
+            <if test="standby03 != null  and standby03 != ''"> and standby_03 = #{standby03}</if>
+            <if test="createId != null  and createId != ''"> and create_id = #{createId}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''"> and last_update_id = #{lastUpdateId}</if>
+            <if test="lastUpdateDate != null "> and last_update_date = #{lastUpdateDate}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="formType != null  and formType != ''"> and form_type = #{formType}</if>
+            <if test="portOfDestination != null  and portOfDestination != ''"> and port_of_destination = #{portOfDestination}</if>
+            <if test="portOfDeparture != null  and portOfDeparture != ''"> and port_of_departure = #{portOfDeparture}</if>
+            <if test="termsOfDelivery != null  and termsOfDelivery != ''"> and terms_of_delivery = #{termsOfDelivery}</if>
+            <if test="kindOfPackage != null  and kindOfPackage != ''"> and kind_of_package = #{kindOfPackage}</if>
+            <if test="transportation != null  and transportation != ''"> and transportation = #{transportation}</if>
+            <if test="consigner != null  and consigner != ''"> and consigner = #{consigner}</if>
+            <if test="excelFilePath != null  and excelFilePath != ''"> and excel_file_path = #{excelFilePath}</if>
+        </where>
+    </select>
+    
+    <select id="selectOrderFormById" parameterType="String" resultMap="OrderFormResult">
+        <include refid="selectOrderFormVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertOrderForm" parameterType="OrderForm">
+        insert into hq_order_form
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="shippingAddress != null  and shippingAddress != ''">shipping_address,</if>
+            <if test="destination != null  and destination != ''">destination,</if>
+            <if test="receivingCompany != null  and receivingCompany != ''">receiving_company,</if>
+            <if test="formId != null  and formId != ''">form_id,</if>
+            <if test="totalQuantity != null ">total_quantity,</if>
+            <if test="totalCubic != null  and totalCubic != ''">total_cubic,</if>
+            <if test="totalWeight != null  and totalWeight != ''">total_weight,</if>
+            <if test="totalMoney != null  and totalMoney != ''">total_money,</if>
+            <if test="dollarCurrencyRate != null  and dollarCurrencyRate != ''">dollar_currency_rate,</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''">tax_refund_rate,</if>
+            <if test="totalDollarsCustoms != null  and totalDollarsCustoms != ''">total_dollars_customs,</if>
+            <if test="totalCount != null ">total_count,</if>
+            <if test="standby01 != null  and standby01 != ''">standby_01,</if>
+            <if test="standby02 != null  and standby02 != ''">standby_02,</if>
+            <if test="standby03 != null  and standby03 != ''">standby_03,</if>
+            <if test="createId != null  and createId != ''">create_id,</if>
+            <if test="createDate != null ">create_date,</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''">last_update_id,</if>
+            <if test="lastUpdateDate != null ">last_update_date,</if>
+            <if test="ip != null  and ip != ''">ip,</if>
+            <if test="formType != null  and formType != ''">form_type,</if>
+            <if test="portOfDestination != null  and portOfDestination != ''">port_of_destination,</if>
+            <if test="portOfDeparture != null  and portOfDeparture != ''">port_of_departure,</if>
+            <if test="termsOfDelivery != null  and termsOfDelivery != ''">terms_of_delivery,</if>
+            <if test="kindOfPackage != null  and kindOfPackage != ''">kind_of_package,</if>
+            <if test="transportation != null  and transportation != ''">transportation,</if>
+            <if test="consigner != null  and consigner != ''">consigner,</if>
+            <if test="excelFilePath != null  and excelFilePath != ''">excel_file_path,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="shippingAddress != null  and shippingAddress != ''">#{shippingAddress},</if>
+            <if test="destination != null  and destination != ''">#{destination},</if>
+            <if test="receivingCompany != null  and receivingCompany != ''">#{receivingCompany},</if>
+            <if test="formId != null  and formId != ''">#{formId},</if>
+            <if test="totalQuantity != null ">#{totalQuantity},</if>
+            <if test="totalCubic != null  and totalCubic != ''">#{totalCubic},</if>
+            <if test="totalWeight != null  and totalWeight != ''">#{totalWeight},</if>
+            <if test="totalMoney != null  and totalMoney != ''">#{totalMoney},</if>
+            <if test="dollarCurrencyRate != null  and dollarCurrencyRate != ''">#{dollarCurrencyRate},</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''">#{taxRefundRate},</if>
+            <if test="totalDollarsCustoms != null  and totalDollarsCustoms != ''">#{totalDollarsCustoms},</if>
+            <if test="totalCount != null ">#{totalCount},</if>
+            <if test="standby01 != null  and standby01 != ''">#{standby01},</if>
+            <if test="standby02 != null  and standby02 != ''">#{standby02},</if>
+            <if test="standby03 != null  and standby03 != ''">#{standby03},</if>
+            <if test="createId != null  and createId != ''">#{createId},</if>
+            <if test="createDate != null ">#{createDate},</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''">#{lastUpdateId},</if>
+            <if test="lastUpdateDate != null ">#{lastUpdateDate},</if>
+            <if test="ip != null  and ip != ''">#{ip},</if>
+            <if test="formType != null  and formType != ''">#{formType},</if>
+            <if test="portOfDestination != null  and portOfDestination != ''">#{portOfDestination},</if>
+            <if test="portOfDeparture != null  and portOfDeparture != ''">#{portOfDeparture},</if>
+            <if test="termsOfDelivery != null  and termsOfDelivery != ''">#{termsOfDelivery},</if>
+            <if test="kindOfPackage != null  and kindOfPackage != ''">#{kindOfPackage},</if>
+            <if test="transportation != null  and transportation != ''">#{transportation},</if>
+            <if test="consigner != null  and consigner != ''">#{consigner},</if>
+            <if test="excelFilePath != null  and excelFilePath != ''">#{excelFilePath},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrderForm" parameterType="OrderForm">
+        update hq_order_form
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shippingAddress != null  and shippingAddress != ''">shipping_address = #{shippingAddress},</if>
+            <if test="destination != null  and destination != ''">destination = #{destination},</if>
+            <if test="receivingCompany != null  and receivingCompany != ''">receiving_company = #{receivingCompany},</if>
+            <if test="formId != null  and formId != ''">form_id = #{formId},</if>
+            <if test="totalQuantity != null ">total_quantity = #{totalQuantity},</if>
+            <if test="totalCubic != null  and totalCubic != ''">total_cubic = #{totalCubic},</if>
+            <if test="totalWeight != null  and totalWeight != ''">total_weight = #{totalWeight},</if>
+            <if test="totalMoney != null  and totalMoney != ''">total_money = #{totalMoney},</if>
+            <if test="dollarCurrencyRate != null  and dollarCurrencyRate != ''">dollar_currency_rate = #{dollarCurrencyRate},</if>
+            <if test="taxRefundRate != null  and taxRefundRate != ''">tax_refund_rate = #{taxRefundRate},</if>
+            <if test="totalDollarsCustoms != null  and totalDollarsCustoms != ''">total_dollars_customs = #{totalDollarsCustoms},</if>
+            <if test="totalCount != null ">total_count = #{totalCount},</if>
+            <if test="standby01 != null  and standby01 != ''">standby_01 = #{standby01},</if>
+            <if test="standby02 != null  and standby02 != ''">standby_02 = #{standby02},</if>
+            <if test="standby03 != null  and standby03 != ''">standby_03 = #{standby03},</if>
+            <if test="createId != null  and createId != ''">create_id = #{createId},</if>
+            <if test="createDate != null ">create_date = #{createDate},</if>
+            <if test="lastUpdateId != null  and lastUpdateId != ''">last_update_id = #{lastUpdateId},</if>
+            <if test="lastUpdateDate != null ">last_update_date = #{lastUpdateDate},</if>
+            <if test="ip != null  and ip != ''">ip = #{ip},</if>
+            <if test="formType != null  and formType != ''">form_type = #{formType},</if>
+            <if test="portOfDestination != null  and portOfDestination != ''">port_of_destination = #{portOfDestination},</if>
+            <if test="portOfDeparture != null  and portOfDeparture != ''">port_of_departure = #{portOfDeparture},</if>
+            <if test="termsOfDelivery != null  and termsOfDelivery != ''">terms_of_delivery = #{termsOfDelivery},</if>
+            <if test="kindOfPackage != null  and kindOfPackage != ''">kind_of_package = #{kindOfPackage},</if>
+            <if test="transportation != null  and transportation != ''">transportation = #{transportation},</if>
+            <if test="consigner != null  and consigner != ''">consigner = #{consigner},</if>
+            <if test="excelFilePath != null  and excelFilePath != ''">excel_file_path = #{excelFilePath},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderFormById" parameterType="String">
+        delete from hq_order_form where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderFormByIds" parameterType="String">
+        delete from hq_order_form where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.hq.data.mapper.FormDataMapper">
+    
+    <resultMap type="FormData" id="FormDataResult">
+        <result property="id"    column="id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productId"    column="product_id"    />
+        <result property="orderFormId"    column="order_form_id"    />
+        <result property="cargoCount"    column="cargo_count"    />
+        <result property="presenterCount"    column="presenter_count"    />
+        <result property="purchaseCount"    column="purchase_count"    />
+        <result property="boxCount"    column="box_count"    />
+        <result property="pieceCount"    column="piece_count"    />
+        <result property="cubeCount"    column="cube_count"    />
+        <result property="totalCubeCount"    column="total_cube_count"    />
+        <result property="weight"    column="weight"    />
+        <result property="totalWeight"    column="total_weight"    />
+        <result property="unitPrice"    column="unit_price"    />
+        <result property="money"    column="money"    />
+        <result property="sort"    column="sort"    />
+        <result property="standby01"    column="standby_01"    />
+        <result property="standby02"    column="standby_02"    />
+        <result property="standby03"    column="standby_03"    />
+    </resultMap>
+
+    <sql id="selectFormDataVo">
+        select id, product_name, product_id, order_form_id, cargo_count, presenter_count, purchase_count, box_count, piece_count, cube_count, total_cube_count, weight, total_weight, unit_price, money, sort, standby_01, standby_02, standby_03 from hq_form_data
+    </sql>
+
+    <select id="selectFormDataList" parameterType="FormData" resultMap="FormDataResult">
+        <include refid="selectFormDataVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+            <if test="orderFormId != null  and orderFormId != ''"> and order_form_id = #{orderFormId}</if>
+            <if test="cargoCount != null  and cargoCount != ''"> and cargo_count = #{cargoCount}</if>
+            <if test="presenterCount != null  and presenterCount != ''"> and presenter_count = #{presenterCount}</if>
+            <if test="purchaseCount != null  and purchaseCount != ''"> and purchase_count = #{purchaseCount}</if>
+            <if test="boxCount != null "> and box_count = #{boxCount}</if>
+            <if test="pieceCount != null "> and piece_count = #{pieceCount}</if>
+            <if test="cubeCount != null  and cubeCount != ''"> and cube_count = #{cubeCount}</if>
+            <if test="totalCubeCount != null  and totalCubeCount != ''"> and total_cube_count = #{totalCubeCount}</if>
+            <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
+            <if test="totalWeight != null  and totalWeight != ''"> and total_weight = #{totalWeight}</if>
+            <if test="unitPrice != null  and unitPrice != ''"> and unit_price = #{unitPrice}</if>
+            <if test="money != null  and money != ''"> and money = #{money}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
+            <if test="standby01 != null  and standby01 != ''"> and standby_01 = #{standby01}</if>
+            <if test="standby02 != null  and standby02 != ''"> and standby_02 = #{standby02}</if>
+            <if test="standby03 != null  and standby03 != ''"> and standby_03 = #{standby03}</if>
+        </where>
+        order by sort asc
+    </select>
+    
+    <select id="selectFormDataById" parameterType="String" resultMap="FormDataResult">
+        <include refid="selectFormDataVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFormData" parameterType="FormData">
+        insert into hq_form_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="productName != null  and productName != ''">product_name,</if>
+            <if test="productId != null  and productId != ''">product_id,</if>
+            <if test="orderFormId != null  and orderFormId != ''">order_form_id,</if>
+            <if test="cargoCount != null  and cargoCount != ''">cargo_count,</if>
+            <if test="presenterCount != null  and presenterCount != ''">presenter_count,</if>
+            <if test="purchaseCount != null  and purchaseCount != ''">purchase_count,</if>
+            <if test="boxCount != null ">box_count,</if>
+            <if test="pieceCount != null ">piece_count,</if>
+            <if test="cubeCount != null  and cubeCount != ''">cube_count,</if>
+            <if test="totalCubeCount != null  and totalCubeCount != ''">total_cube_count,</if>
+            <if test="weight != null  and weight != ''">weight,</if>
+            <if test="totalWeight != null  and totalWeight != ''">total_weight,</if>
+            <if test="unitPrice != null  and unitPrice != ''">unit_price,</if>
+            <if test="money != null  and money != ''">money,</if>
+            <if test="sort != null ">sort,</if>
+            <if test="standby01 != null  and standby01 != ''">standby_01,</if>
+            <if test="standby02 != null  and standby02 != ''">standby_02,</if>
+            <if test="standby03 != null  and standby03 != ''">standby_03,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="productName != null  and productName != ''">#{productName},</if>
+            <if test="productId != null  and productId != ''">#{productId},</if>
+            <if test="orderFormId != null  and orderFormId != ''">#{orderFormId},</if>
+            <if test="cargoCount != null  and cargoCount != ''">#{cargoCount},</if>
+            <if test="presenterCount != null  and presenterCount != ''">#{presenterCount},</if>
+            <if test="purchaseCount != null  and purchaseCount != ''">#{purchaseCount},</if>
+            <if test="boxCount != null ">#{boxCount},</if>
+            <if test="pieceCount != null ">#{pieceCount},</if>
+            <if test="cubeCount != null  and cubeCount != ''">#{cubeCount},</if>
+            <if test="totalCubeCount != null  and totalCubeCount != ''">#{totalCubeCount},</if>
+            <if test="weight != null  and weight != ''">#{weight},</if>
+            <if test="totalWeight != null  and totalWeight != ''">#{totalWeight},</if>
+            <if test="unitPrice != null  and unitPrice != ''">#{unitPrice},</if>
+            <if test="money != null  and money != ''">#{money},</if>
+            <if test="sort != null ">#{sort},</if>
+            <if test="standby01 != null  and standby01 != ''">#{standby01},</if>
+            <if test="standby02 != null  and standby02 != ''">#{standby02},</if>
+            <if test="standby03 != null  and standby03 != ''">#{standby03},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFormData" parameterType="FormData">
+        update hq_form_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productName != null  and productName != ''">product_name = #{productName},</if>
+            <if test="productId != null  and productId != ''">product_id = #{productId},</if>
+            <if test="orderFormId != null  and orderFormId != ''">order_form_id = #{orderFormId},</if>
+            <if test="cargoCount != null  and cargoCount != ''">cargo_count = #{cargoCount},</if>
+            <if test="presenterCount != null  and presenterCount != ''">presenter_count = #{presenterCount},</if>
+            <if test="purchaseCount != null  and purchaseCount != ''">purchase_count = #{purchaseCount},</if>
+            <if test="boxCount != null ">box_count = #{boxCount},</if>
+            <if test="pieceCount != null ">piece_count = #{pieceCount},</if>
+            <if test="cubeCount != null  and cubeCount != ''">cube_count = #{cubeCount},</if>
+            <if test="totalCubeCount != null  and totalCubeCount != ''">total_cube_count = #{totalCubeCount},</if>
+            <if test="weight != null  and weight != ''">weight = #{weight},</if>
+            <if test="totalWeight != null  and totalWeight != ''">total_weight = #{totalWeight},</if>
+            <if test="unitPrice != null  and unitPrice != ''">unit_price = #{unitPrice},</if>
+            <if test="money != null  and money != ''">money = #{money},</if>
+            <if test="sort != null ">sort = #{sort},</if>
+            <if test="standby01 != null  and standby01 != ''">standby_01 = #{standby01},</if>
+            <if test="standby02 != null  and standby02 != ''">standby_02 = #{standby02},</if>
+            <if test="standby03 != null  and standby03 != ''">standby_03 = #{standby03},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFormDataById" parameterType="String">
+        delete from hq_form_data where id = #{id}
+    </delete>
+
+    <delete id="deleteFormDataByIds" parameterType="String">
+        delete from hq_form_data where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
